@@ -24,10 +24,19 @@
         <p class="home__subtitle">Guess the word in 6 tries</p>
         <p class="home__author">by <span class="accent">MaRnevorget</span></p>
       </div>
-      <button class="play-card" id="btn-home-play">
-        <span class="play-card__emoji">▶</span>
-        <div class="play-card__info"><h3>Play Wordle</h3><p>5-letter word challenge</p></div>
-      </button>
+      <div class="home__cards">
+        <h2 class="section-label">Choose Language</h2>
+        <button class="mode-card" data-lang="en">
+          <span class="mode-card__emoji">🇬🇧</span>
+          <div class="mode-card__info"><h3>English</h3><p>500+ common 5-letter words</p></div>
+          <span class="mode-card__go">▶</span>
+        </button>
+        <button class="mode-card" data-lang="id">
+          <span class="mode-card__emoji">🇮🇩</span>
+          <div class="mode-card__info"><h3>Bahasa Indonesia</h3><p>500+ kata 5 huruf umum</p></div>
+          <span class="mode-card__go">▶</span>
+        </button>
+      </div>
       <div class="home__howto">
         <h2 class="section-label">How to Play</h2>
         <div class="howto-grid">
@@ -45,7 +54,7 @@
     <div class="app">
       <div class="topbar">
         <button class="btn-icon" id="btn-back" title="Back">←</button>
-        <h1 class="topbar__title">📝 <span class="accent">Wordle</span></h1>
+        <h1 class="topbar__title">📝 <span class="accent">Wordle</span> <span class="lang-badge" id="lang-badge">EN</span></h1>
         <div class="topbar__right">
           <button class="btn-icon" id="btn-sound" title="Sound">🔊</button>
           <button class="btn-icon" id="btn-new" title="New Word">🔄</button>

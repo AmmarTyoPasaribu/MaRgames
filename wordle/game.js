@@ -1,4 +1,4 @@
-/* Wordle — Game Engine + Home Screen + SFX */
+/* Wordle — Game Engine + Bilingual (EN/ID) + SFX */
 (() => {
   'use strict';
 
@@ -25,16 +25,22 @@
   const screenHome = $('screen-home'), screenGame = $('screen-game');
   const gridEl = $('grid'), kbEl = $('keyboard'), statusEl = $('status');
   const streakEl = $('streak'), bestEl = $('best');
+  const langBadge = $('lang-badge');
 
-  // ─── WORD LIST ──────────────────────────
-  const WORDS = ['ABOUT','ABOVE','ABUSE','ACTOR','ACUTE','ADMIT','ADOPT','ADULT','AFTER','AGAIN','AGENT','AGREE','AHEAD','ALARM','ALBUM','ALERT','ALIEN','ALIGN','ALIVE','ALLEY','ALLOW','ALONE','ALTER','ANGEL','ANGER','ANGLE','ANGRY','ANKLE','APART','APPLE','ARENA','ARGUE','ARISE','ASIDE','ASSET','AVOID','AWARD','AWARE','BADLY','BAKER','BASED','BASIC','BASIS','BEACH','BEGAN','BEGIN','BEING','BELOW','BENCH','BIBLE','BLACK','BLADE','BLAME','BLANK','BLAST','BLAZE','BLEED','BLEND','BLIND','BLOCK','BLOOD','BLOWN','BOARD','BONUS','BOUND','BRAIN','BRAND','BRAVE','BREAD','BREAK','BREED','BRICK','BRIEF','BRING','BROAD','BROKE','BROWN','BRUSH','BUILD','BUILT','BUNCH','BURST','BUYER','CABIN','CABLE','CARRY','CATCH','CAUSE','CHAIN','CHAIR','CHASE','CHEAP','CHECK','CHEEK','CHESS','CHEST','CHIEF','CHILD','CHINA','CHUNK','CHUNK','CIVIL','CLAIM','CLASS','CLEAN','CLEAR','CLIMB','CLING','CLOCK','CLOSE','CLOUD','COACH','COAST','COLOR','COUCH','COULD','COUNT','COURT','COVER','CRACK','CRAFT','CRASH','CRAZY','CREAM','CRIME','CROSS','CROWD','CRUEL','CRUSH','CURVE','CYCLE','DAILY','DANCE','DEALT','DEATH','DEBUT','DELAY','DEPTH','DEVIL','DIRTY','DOUBT','DOZEN','DRAFT','DRAIN','DRAMA','DRANK','DRAWN','DREAM','DRESS','DRIED','DRINK','DRIVE','DROVE','DYING','EAGER','EARLY','EARTH','EIGHT','ELECT','ELITE','EMPTY','ENEMY','ENJOY','ENTER','ENTRY','EQUAL','ERROR','EVENT','EVERY','EXACT','EXIST','EXTRA','FAITH','FALSE','FAULT','FEAST','FIELD','FIFTH','FIFTY','FIGHT','FINAL','FIRST','FIXED','FLAME','FLASH','FLEET','FLESH','FLOAT','FLOOD','FLOOR','FLUID','FLESH','FOCUS','FORCE','FORGE','FORTH','FORTY','FORUM','FOUND','FRAME','FRANK','FRAUD','FRESH','FRONT','FROST','FRUIT','FULLY','GIANT','GIVEN','GLASS','GLIDE','GLOBE','GLORY','GOING','GRACE','GRADE','GRAIN','GRAND','GRANT','GRAPH','GRASP','GRASS','GRAVE','GREAT','GREEN','GRIEF','GRILL','GRIND','GROSS','GROUP','GROWN','GUARD','GUESS','GUEST','GUIDE','GUILT','HAPPY','HARSH','HAUNT','HEART','HEAVY','HEDGE','HELLO','HENCE','HORSE','HOTEL','HOUSE','HUMAN','HUMOR','IDEAL','IMAGE','IMPLY','INDEX','FAITH','INNER','INPUT','IRONY','ISSUE','IVORY','JOINT','JUDGE','JUICE','JUICY','KNACK','KNEEL','KNIFE','KNOCK','KNOWN','LABEL','LABOR','LARGE','LASER','LATER','LAUGH','LAYER','LEARN','LEASE','LEAVE','LEGAL','LEVEL','LIGHT','LIMIT','LINEN','LIVER','LOGIC','LONELY','LOOSE','LOVER','LOWER','LOYAL','LUCKY','LUNCH','LYING','MAGIC','MAJOR','MAKER','MARCH','MARRY','MATCH','MAYBE','MAYOR','MEDIA','MERCY','MERIT','METAL','MINOR','MINUS','MIXER','MODEL','MONEY','MONTH','MORAL','MOTOR','MOUNT','MOUSE','MOUTH','MOVED','MOVIE','MUSIC','NAKED','NERVE','NEVER','NIGHT','NOBLE','NOISE','NORTH','NOTED','NOVEL','NURSE','OCCUR','OCEAN','OFFER','OFTEN','ORDER','OTHER','OUTER','OWNER','PAINT','PANEL','PANIC','PAPER','PARTY','PATCH','PAUSE','PEACE','PENNY','PHASE','PHONE','PHOTO','PIANO','PIECE','PILOT','PITCH','PIZZA','PLACE','PLAIN','PLANE','PLANT','PLATE','PLEAD','PLAZA','PLEAD','POINT','POUND','POWER','PRESS','PRICE','PRIDE','PRIME','PRINT','PRIOR','PRIZE','PROOF','PROUD','PROVE','PUNCH','PUPIL','QUEEN','QUEST','QUEUE','QUICK','QUIET','QUITE','QUOTE','RADAR','RADIO','RAISE','RALLY','RANCH','RANGE','RAPID','RATIO','REACH','REACT','READY','REALM','REBEL','REIGN','RELAX','REPLY','RIGHT','RIGID','RIVAL','RIVER','ROBOT','ROCKY','ROGER','ROMAN','ROUGH','ROUND','ROUTE','ROYAL','RUGBY','RURAL','SADLY','SAINT','SALAD','SAUCE','SCALE','SCENE','SCOPE','SCORE','SENSE','SERVE','SEVEN','SHALL','SHAME','SHAPE','SHARE','SHARP','SHEEP','SHEER','SHELF','SHELL','SHIFT','SHINE','SHIRT','SHOCK','SHOOT','SHORT','SHOUT','SIGHT','SINCE','SIXTH','SIXTY','SIZED','SKILL','SKULL','SLAVE','SLEEP','SLICE','SLIDE','SLOPE','SMALL','SMART','SMELL','SMILE','SMOKE','SOLID','SOLVE','SORRY','SOUTH','SPACE','SPARE','SPEAK','SPEED','SPEND','SPENT','SPINE','SPITE','SPLIT','SPOKE','SPOON','SPORT','SPRAY','SQUAD','STACK','STAFF','STAGE','STAKE','STALE','STALL','STAND','STARK','START','STATE','STEAK','STEAL','STEAM','STEEL','STEEP','STEER','STICK','STIFF','STILL','STOCK','STONE','STOOD','STORE','STORM','STORY','STOVE','STRAP','STRAW','STRIP','STUCK','STUDY','STUFF','STYLE','SUGAR','SUITE','SUNNY','SUPER','SURGE','SWAMP','SWEAR','SWEEP','SWEET','SWEPT','SWIFT','SWING','SWORD','SWORE','SWORN','TAKEN','TASTE','TEACH','TEETH','THANK','THEFT','THEME','THERE','THICK','THING','THINK','THIRD','THOSE','THREE','THREW','THROW','THUMB','TIGHT','TIMER','TIRED','TITLE','TODAY','TOKEN','TOTAL','TOUCH','TOUGH','TOWER','TOXIC','TRACE','TRACK','TRADE','TRAIL','TRAIN','TRAIT','TRAPS','TRASH','TREAT','TREND','TRIAL','TRIBE','TRICK','TRIED','TROOP','TRUCK','TRULY','TRUMP','TRUNK','TRUST','TRUTH','TUMOR','TWICE','TWIST','ULTRA','UNDER','UNIFY','UNION','UNITE','UNITY','UNTIL','UPPER','UPSET','URBAN','USAGE','USUAL','VALID','VALUE','VIDEO','VIGOR','VIRAL','VIRUS','VISIT','VITAL','VIVID','VOCAL','VOICE','VOTER','WASTE','WATCH','WATER','WEIGH','WEIRD','WHALE','WHEAT','WHEEL','WHERE','WHICH','WHILE','WHITE','WHOLE','WHOSE','WIDER','WOMAN','WOMEN','WORLD','WORRY','WORSE','WORST','WORTH','WOULD','WOUND','WRITE','WRONG','WROTE','YACHT','YIELD','YOUNG','YOUTH'];
+  // ─── WORD LISTS ──────────────────────────
+  const WORDS_EN = ['ABOUT','ABOVE','ABUSE','ACTOR','ACUTE','ADMIT','ADOPT','ADULT','AFTER','AGAIN','AGENT','AGREE','AHEAD','ALARM','ALBUM','ALERT','ALIEN','ALIGN','ALIVE','ALLEY','ALLOW','ALONE','ALTER','ANGEL','ANGER','ANGLE','ANGRY','ANKLE','APART','APPLE','ARENA','ARGUE','ARISE','ASIDE','ASSET','AVOID','AWARD','AWARE','BADLY','BAKER','BASED','BASIC','BASIS','BEACH','BEGAN','BEGIN','BEING','BELOW','BENCH','BIBLE','BLACK','BLADE','BLAME','BLANK','BLAST','BLAZE','BLEED','BLEND','BLIND','BLOCK','BLOOD','BLOWN','BOARD','BONUS','BOUND','BRAIN','BRAND','BRAVE','BREAD','BREAK','BREED','BRICK','BRIEF','BRING','BROAD','BROKE','BROWN','BRUSH','BUILD','BUILT','BUNCH','BURST','BUYER','CABIN','CABLE','CARRY','CATCH','CAUSE','CHAIN','CHAIR','CHASE','CHEAP','CHECK','CHEEK','CHESS','CHEST','CHIEF','CHILD','CHINA','CHUNK','CIVIL','CLAIM','CLASS','CLEAN','CLEAR','CLIMB','CLING','CLOCK','CLOSE','CLOUD','COACH','COAST','COLOR','COUCH','COULD','COUNT','COURT','COVER','CRACK','CRAFT','CRASH','CRAZY','CREAM','CRIME','CROSS','CROWD','CRUEL','CRUSH','CURVE','CYCLE','DAILY','DANCE','DEALT','DEATH','DEBUT','DELAY','DEPTH','DEVIL','DIRTY','DOUBT','DOZEN','DRAFT','DRAIN','DRAMA','DRANK','DRAWN','DREAM','DRESS','DRIED','DRINK','DRIVE','DROVE','DYING','EAGER','EARLY','EARTH','EIGHT','ELECT','ELITE','EMPTY','ENEMY','ENJOY','ENTER','ENTRY','EQUAL','ERROR','EVENT','EVERY','EXACT','EXIST','EXTRA','FAITH','FALSE','FAULT','FEAST','FIELD','FIFTH','FIFTY','FIGHT','FINAL','FIRST','FIXED','FLAME','FLASH','FLEET','FLESH','FLOAT','FLOOD','FLOOR','FLUID','FOCUS','FORCE','FORGE','FORTH','FORTY','FORUM','FOUND','FRAME','FRANK','FRAUD','FRESH','FRONT','FROST','FRUIT','FULLY','GIANT','GIVEN','GLASS','GLIDE','GLOBE','GLORY','GOING','GRACE','GRADE','GRAIN','GRAND','GRANT','GRAPH','GRASP','GRASS','GRAVE','GREAT','GREEN','GRIEF','GRILL','GRIND','GROSS','GROUP','GROWN','GUARD','GUESS','GUEST','GUIDE','GUILT','HAPPY','HARSH','HAUNT','HEART','HEAVY','HEDGE','HELLO','HENCE','HORSE','HOTEL','HOUSE','HUMAN','HUMOR','IDEAL','IMAGE','IMPLY','INDEX','INNER','INPUT','IRONY','ISSUE','IVORY','JOINT','JUDGE','JUICE','JUICY','KNACK','KNEEL','KNIFE','KNOCK','KNOWN','LABEL','LABOR','LARGE','LASER','LATER','LAUGH','LAYER','LEARN','LEASE','LEAVE','LEGAL','LEVEL','LIGHT','LIMIT','LINEN','LIVER','LOGIC','LOOSE','LOVER','LOWER','LOYAL','LUCKY','LUNCH','LYING','MAGIC','MAJOR','MAKER','MARCH','MARRY','MATCH','MAYBE','MAYOR','MEDIA','MERCY','MERIT','METAL','MINOR','MINUS','MIXER','MODEL','MONEY','MONTH','MORAL','MOTOR','MOUNT','MOUSE','MOUTH','MOVED','MOVIE','MUSIC','NAKED','NERVE','NEVER','NIGHT','NOBLE','NOISE','NORTH','NOTED','NOVEL','NURSE','OCCUR','OCEAN','OFFER','OFTEN','ORDER','OTHER','OUTER','OWNER','PAINT','PANEL','PANIC','PAPER','PARTY','PATCH','PAUSE','PEACE','PENNY','PHASE','PHONE','PHOTO','PIANO','PIECE','PILOT','PITCH','PIZZA','PLACE','PLAIN','PLANE','PLANT','PLATE','PLEAD','PLAZA','POINT','POUND','POWER','PRESS','PRICE','PRIDE','PRIME','PRINT','PRIOR','PRIZE','PROOF','PROUD','PROVE','PUNCH','PUPIL','QUEEN','QUEST','QUEUE','QUICK','QUIET','QUITE','QUOTE','RADAR','RADIO','RAISE','RALLY','RANCH','RANGE','RAPID','RATIO','REACH','REACT','READY','REALM','REBEL','REIGN','RELAX','REPLY','RIGHT','RIGID','RIVAL','RIVER','ROBOT','ROCKY','ROGER','ROMAN','ROUGH','ROUND','ROUTE','ROYAL','RUGBY','RURAL','SADLY','SAINT','SALAD','SAUCE','SCALE','SCENE','SCOPE','SCORE','SENSE','SERVE','SEVEN','SHALL','SHAME','SHAPE','SHARE','SHARP','SHEEP','SHEER','SHELF','SHELL','SHIFT','SHINE','SHIRT','SHOCK','SHOOT','SHORT','SHOUT','SIGHT','SINCE','SIXTH','SIXTY','SIZED','SKILL','SKULL','SLAVE','SLEEP','SLICE','SLIDE','SLOPE','SMALL','SMART','SMELL','SMILE','SMOKE','SOLID','SOLVE','SORRY','SOUTH','SPACE','SPARE','SPEAK','SPEED','SPEND','SPENT','SPINE','SPITE','SPLIT','SPOKE','SPOON','SPORT','SPRAY','SQUAD','STACK','STAFF','STAGE','STAKE','STALE','STALL','STAND','STARK','START','STATE','STEAK','STEAL','STEAM','STEEL','STEEP','STEER','STICK','STIFF','STILL','STOCK','STONE','STOOD','STORE','STORM','STORY','STOVE','STRAP','STRAW','STRIP','STUCK','STUDY','STUFF','STYLE','SUGAR','SUITE','SUNNY','SUPER','SURGE','SWAMP','SWEAR','SWEEP','SWEET','SWEPT','SWIFT','SWING','SWORD','SWORE','SWORN','TAKEN','TASTE','TEACH','TEETH','THANK','THEFT','THEME','THERE','THICK','THING','THINK','THIRD','THOSE','THREE','THREW','THROW','THUMB','TIGHT','TIMER','TIRED','TITLE','TODAY','TOKEN','TOTAL','TOUCH','TOUGH','TOWER','TOXIC','TRACE','TRACK','TRADE','TRAIL','TRAIN','TRAIT','TRASH','TREAT','TREND','TRIAL','TRIBE','TRICK','TRIED','TROOP','TRUCK','TRULY','TRUMP','TRUNK','TRUST','TRUTH','TUMOR','TWICE','TWIST','ULTRA','UNDER','UNIFY','UNION','UNITE','UNITY','UNTIL','UPPER','UPSET','URBAN','USAGE','USUAL','VALID','VALUE','VIDEO','VIGOR','VIRAL','VIRUS','VISIT','VITAL','VIVID','VOCAL','VOICE','VOTER','WASTE','WATCH','WATER','WEIGH','WEIRD','WHALE','WHEAT','WHEEL','WHERE','WHICH','WHILE','WHITE','WHOLE','WHOSE','WIDER','WOMAN','WOMEN','WORLD','WORRY','WORSE','WORST','WORTH','WOULD','WOUND','WRITE','WRONG','WROTE','YACHT','YIELD','YOUNG','YOUTH'];
 
+  const WORDS_ID = ['ACARA','ADUAN','AGAMA','AJAIB','AKTOR','ALAMI','ALANG','ALBUM','AMBIL','ANEKA','ANGKA','ANGIN','ANJAL','ANTAR','ANTRI','ASING','ATLET','BABAK','BADAN','BAHAN','BAHAS','BAHWA','BAKAR','BAKTI','BALAS','BAMBU','BANCA','BANTU','BAPAK','BARAT','BARIS','BASAH','BATIK','BATIN','BATAS','BAWAH','BAYAR','BAZAR','BEBAN','BEDAH','BEGAT','BEKAL','BELAH','BELUM','BENAR','BENCI','BENUA','BERAT','BERIT','BESAR','BESOK','BIAYA','BIDAK','BIJAK','BILIK','BINUS','BIOLA','BOBOT','BOLEH','BONUS','BUBUK','BUDAK','BUKIT','BULAN','BULAT','BUMBU','BUNGA','BURUK','BUTAN','CACAT','CAKAP','CALON','CAMAR','CAPAI','CELAH','CEPAT','CERAH','CETAK','CIPTA','CORAK','CUACA','CUCUK','CUKUP','CURAH','CULIK','DADAK','DAMAI','DARAT','DASAR','DAPAT','DATUM','DAWAI','DEKAT','DENDA','DEPAN','DERAS','DERET','DEWAS','DIDIK','DIJUA','DIKIT','DINAS','DOSEN','DUBES','DUNIA','EMBER','EMOSI','EMPAT','ENDAP','GADIS','GAGAL','GALAK','GANDA','GANGU','GARIS','GARPU','GAWAI','GELAR','GELAP','GENAP','GERAM','GERAK','GIGIT','GOSIP','GRASI','GUBAL','GULAI','GUMAM','GURUN','HABIS','HADAP','HAFAL','HARGA','HARUS','HASIL','HELAT','HIBAH','HIDUP','HIJAU','HINAS','HITAM','HITUNG','HOTEL','HUJAN','HUKUM','HUTAN','IBLIS','IKLIM','IKLAN','IKRAR','ILHAM','IMPOR','INDAH','INDUK','INTAI','IRONI','ISTRI','JALAN','JANJI','JARAK','JATUH','JAWAB','JELAK','JELAS','JENUH','JERUK','JILAT','JINAK','JINAK','JUJUR','JULUK','JUMPA','JUANG','JUDUL','KABAR','KABEL','KACAU','KAPAL','KARYA','KASIH','KATAK','KAWIN','KEBAL','KEBUN','KECIL','KEDUA','KERAS','KERJA','KEREN','KESAL','KETAT','KIDAL','KLAIM','KORAN','KORUP','KOTAK','KRONI','KUBUR','KUKUH','KULAK','KUPAS','KUPON','KURSI','KUTIL','KUNCI','LAHAN','LAHIR','LAJUR','LAPAR','LAYAK','LAYAR','LAZIM','LEGAL','LEMAH','LETAK','LIHAT','LIKEN','LILIN','LIPAT','LOGAM','LOMBA','LOKAL','LONCA','LUANG','LUHUR','LUMBA','MAKAN','MAKIN','MALAM','MALAH','MAMPU','MANIS','MARAH','MASAK','MASIH','MASUK','MEDAL','MELAR','MELIK','MEREK','MILIK','MINTA','MIRIP','MOBIL','MOGOK','MORAL','MULIA','MULAI','MURAH','MUSIM','MUTAR','NAKAL','NAMUN','NANTI','NASIB','NEKAT','NIKAH','NYALA','NYATA','OBJEK','OPINI','PACAR','PADAT','PAGAR','PAHAM','PAKAI','PAKAN','PAKET','PANAS','PANDU','PANIK','PARKIR','PASTI','PATAH','PATUT','PEJAL','PELAN','PELET','PENUH','PERAN','PESAN','PIKIR','PILIH','PINTA','POLIS','POLOS','POLOK','POSIT','POTOL','PUASA','PUCAT','PUNAH','PUSAT','PUTIH','RAWAN','REBAH','RILIS','RIMBA','RINDU','RISAU','ROBOT','RUBAH','RUJUK','RUMAH','RUMIT','RUSAK','SABUK','SAINS','SAKSI','SALAH','SALAM','SAMAR','SARAT','SEDIA','SEGAR','SELAM','SEMAK','SENIN','SERAT','SERTA','SIDIK','SIGAP','SIKAT','SINAR','SOSOK','SUAMI','SUDAH','SULIT','SURAT','TABIR','TAMAT','TANAH','TANDA','TEKAD','TEKAN','TEKUN','TELAT','TEMPO','TENAR','TEPAT','TERAS','TERTB','TIDAK','TIANG','TIKUS','TIMUR','TITIK','TOKOH','TUGAS','TULAR','TULIS','TUMBA','TURUT','ULUNG','UMBUL','UNTUK','UPAYA','USAHA','UTAMA','WAKIL','WAJAH','WAJIB','WAJAR','WAKTU','WANGI','WARGA','WARNA','WISMA','YAKNI','ZAMAN'];
+
+  let currentLang = 'en';
   let answer, guesses, currentGuess, currentRow, gameOverFlag;
   let stats = JSON.parse(localStorage.getItem('wordle_stats') || '{"streak":0,"best":0}');
 
   const savedSound = localStorage.getItem('wordle_sound');
   soundEnabled = savedSound !== 'off';
   updateSoundUI();
+
+  function getWordList() { return currentLang === 'id' ? WORDS_ID : WORDS_EN; }
 
   function showScreen(name) {
     screenHome.classList.toggle('screen--active', name === 'home');
@@ -44,11 +50,13 @@
   function updateSoundUI() { $('btn-sound').textContent = soundEnabled ? '🔊' : '🔇'; }
 
   function init() {
-    answer = WORDS[Math.floor(Math.random()*WORDS.length)];
+    const words = getWordList();
+    answer = words[Math.floor(Math.random()*words.length)];
     guesses = []; currentGuess = ''; currentRow = 0; gameOverFlag = false;
     statusEl.textContent = '';
     streakEl.textContent = stats.streak;
     bestEl.textContent = stats.best;
+    langBadge.textContent = currentLang.toUpperCase();
     buildGrid(); buildKeyboard();
   }
 
@@ -110,7 +118,10 @@
 
   function submitGuess() {
     if (gameOverFlag) return;
-    if (currentGuess.length !== 5) { statusEl.textContent = 'Need 5 letters!'; SFX.wrong(); return; }
+    if (currentGuess.length !== 5) {
+      statusEl.textContent = currentLang === 'id' ? 'Perlu 5 huruf!' : 'Need 5 letters!';
+      SFX.wrong(); return;
+    }
 
     const row = gridEl.children[currentRow];
     const result = evaluateGuess(currentGuess, answer);
@@ -131,7 +142,7 @@
 
     setTimeout(() => {
       if (currentGuess === answer) {
-        statusEl.textContent = '🎉 You got it!';
+        statusEl.textContent = currentLang === 'id' ? '🎉 Benar!' : '🎉 You got it!';
         stats.streak++; if(stats.streak>stats.best)stats.best=stats.streak;
         localStorage.setItem('wordle_stats',JSON.stringify(stats));
         streakEl.textContent=stats.streak;bestEl.textContent=stats.best;
@@ -143,7 +154,7 @@
       currentGuess = ''; currentRow++;
 
       if (currentRow >= 6) {
-        statusEl.textContent = `💀 It was: ${answer}`;
+        statusEl.textContent = currentLang === 'id' ? `💀 Jawabannya: ${answer}` : `💀 It was: ${answer}`;
         stats.streak=0; localStorage.setItem('wordle_stats',JSON.stringify(stats));
         streakEl.textContent=0;
         gameOverFlag = true; SFX.lose();
@@ -157,10 +168,7 @@
     const result = Array(5).fill('absent');
     const ansArr = ans.split('');
     const guessArr = guess.split('');
-
-    // Correct first
     guessArr.forEach((ch,i) => { if(ch===ansArr[i]){result[i]='correct';ansArr[i]=null;guessArr[i]=null;} });
-    // Present
     guessArr.forEach((ch,i) => { if(!ch)return; const idx=ansArr.indexOf(ch); if(idx>-1){result[i]='present';ansArr[idx]=null;} });
     return result;
   }
@@ -173,8 +181,17 @@
     else if (/^[a-zA-Z]$/.test(e.key)) typeLetter(e.key.toUpperCase());
   });
 
-  $('btn-home-play').addEventListener('click', ()=> { SFX.click(); showScreen('game'); init(); });
-  $('btn-back').addEventListener('click', ()=> { SFX.click(); showScreen('home'); });
-  $('btn-new').addEventListener('click', ()=> { SFX.click(); init(); });
+  // Language select cards
+  document.querySelectorAll('.mode-card').forEach(card => {
+    card.addEventListener('click', () => {
+      currentLang = card.dataset.lang;
+      SFX.click();
+      showScreen('game');
+      init();
+    });
+  });
+
+  $('btn-back').addEventListener('click', () => { SFX.click(); showScreen('home'); });
+  $('btn-new').addEventListener('click', () => { SFX.click(); init(); });
   $('btn-sound').addEventListener('click', toggleSound);
 })();
