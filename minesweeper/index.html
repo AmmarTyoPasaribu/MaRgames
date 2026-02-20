@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Minesweeper Game — by MaRnevorget</title>
+  <meta name="description" content="Play the classic Minesweeper game online with stunning modern design. Multiple difficulty levels and smooth animations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="../logo.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#07070d">
+  <link rel="apple-touch-icon" href="../logo.png">
+</head>
+<body>
+
+  <!-- ===== HOME SCREEN ===== -->
+  <div id="screen-home" class="screen screen--active">
+    <div class="bg-particles" id="bg-particles"></div>
+    <div class="home">
+      <div class="home__hero">
+        <div class="home__logo">💣</div>
+        <h1 class="home__title">Mine<span class="accent">sweeper</span></h1>
+        <p class="home__subtitle">The classic puzzle game</p>
+        <p class="home__author">by <span class="accent">MaRnevorget</span></p>
+      </div>
+
+      <div class="home__cards">
+        <button class="diff-card" data-diff="easy" style="--ac:#10b981">
+          <span class="diff-card__emoji">😊</span>
+          <div class="diff-card__info">
+            <h3>Easy</h3>
+            <p>9×9 · 10 mines</p>
+          </div>
+          <span class="diff-card__go">▶</span>
+        </button>
+        <button class="diff-card" data-diff="medium" style="--ac:#f59e0b">
+          <span class="diff-card__emoji">🤔</span>
+          <div class="diff-card__info">
+            <h3>Medium</h3>
+            <p>16×16 · 40 mines</p>
+          </div>
+          <span class="diff-card__go">▶</span>
+        </button>
+        <button class="diff-card" data-diff="hard" style="--ac:#ef4444">
+          <span class="diff-card__emoji">🤯</span>
+          <div class="diff-card__info">
+            <h3>Hard</h3>
+            <p>30×16 · 99 mines</p>
+          </div>
+          <span class="diff-card__go">▶</span>
+        </button>
+      </div>
+
+      <div class="home__howto">
+        <h2 class="section-label">How to Play</h2>
+        <div class="howto-grid">
+          <div class="howto-item"><span>👆</span><p>Click to reveal</p></div>
+          <div class="howto-item"><span>🚩</span><p>Right-click to flag</p></div>
+          <div class="howto-item"><span>🔢</span><p>Numbers = nearby mines</p></div>
+          <div class="howto-item"><span>🎯</span><p>Clear all safe cells!</p></div>
+        </div>
+      </div>
+
+      <a href="../" class="home__dashboard-link" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.07);border-radius:10px;color:#9ca3af;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .2s;margin-bottom:8px">🏠 Back to Dashboard</a>
+      <footer class="home__footer">Built with 💚 by <strong>MaRnevorget</strong></footer>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="screen-game" class="screen">
+    <div class="game">
+      <div class="game__topbar">
+        <button class="btn-icon" id="btn-back" title="Back">←</button>
+        <h2 class="game__title" id="game-title">💣 Easy</h2>
+        <div class="game__topbar-right">
+          <button class="btn-icon" id="btn-sound" title="Sound">🔊</button>
+          <button class="btn-icon" id="btn-new" title="New Game">🔄</button>
+        </div>
+      </div>
+
+      <div class="game__header">
+        <div class="stat">
+          <span class="stat__icon">🚩</span>
+          <span class="stat__val" id="flag-count">10</span>
+        </div>
+        <button class="smiley" id="btn-smiley" title="New Game">🙂</button>
+        <div class="stat">
+          <span class="stat__icon">⏱️</span>
+          <span class="stat__val" id="timer">00:00</span>
+        </div>
+      </div>
+
+      <!-- Mobile flag toggle -->
+      <div class="mobile-toggle">
+        <button class="toggle-btn" id="btn-flag-mode">
+          <span id="flag-mode-icon">👆</span>
+          <span id="flag-mode-label">Reveal Mode</span>
+        </button>
+      </div>
+
+      <div class="board-wrap">
+        <div class="board" id="board"></div>
+      </div>
+
+      <p class="game__best" id="best-time"></p>
+
+      <p class="game__hint">💡 Right-click or long-press to flag mines</p>
+      <p class="game__brand">by <strong>MaRnevorget</strong></p>
+    </div>
+  </div>
+
+  <!-- ===== GAME OVER MODAL ===== -->
+  <div class="modal-overlay" id="modal" hidden>
+    <div class="modal" id="modal-box">
+      <div class="confetti-box" id="confetti-box"></div>
+      <div class="modal__emoji" id="modal-emoji">🏆</div>
+      <h2 class="modal__title" id="modal-title">You Win!</h2>
+      <div class="modal__stats">
+        <div class="modal__stat"><span class="label">Time</span><span class="value" id="modal-time">00:00</span></div>
+        <div class="modal__stat"><span class="label">Difficulty</span><span class="value" id="modal-diff">Easy</span></div>
+      </div>
+      <p class="modal__best" id="modal-best"></p>
+      <p class="modal__stats-extra" id="modal-stats-extra"></p>
+      <div class="modal__actions">
+        <button class="btn btn--primary" id="btn-play-again">🔄 Play Again</button>
+        <button class="btn btn--secondary" id="btn-go-home">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

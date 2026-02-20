@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Breakout — MaRgames</title>
+  <meta name="description" content="Play the classic Breakout arcade game!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="../logo.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#07070d">
+  <link rel="apple-touch-icon" href="../logo.png">
+</head>
+<body>
+  <div id="screen-home" class="screen screen--active">
+    <div class="home">
+      <div class="home__hero">
+        <div class="home__logo">🏓</div>
+        <h1 class="home__title"><span class="accent">Breakout</span></h1>
+        <p class="home__subtitle">Smash all the bricks!</p>
+        <p class="home__author">by <span class="accent">MaRnevorget</span></p>
+      </div>
+      <button class="play-card" id="btn-home-play">
+        <span class="play-card__emoji">▶</span>
+        <div class="play-card__info"><h3>Play Breakout</h3><p>Move paddle, break bricks!</p></div>
+      </button>
+      <div class="home__howto">
+        <h2 class="section-label">How to Play</h2>
+        <div class="howto-grid">
+          <div class="howto-item"><span>⬅️</span><p>← → or mouse to move</p></div>
+          <div class="howto-item"><span>🧱</span><p>Break all the bricks</p></div>
+          <div class="howto-item"><span>❤️</span><p>3 lives to start</p></div>
+          <div class="howto-item"><span>🏆</span><p>Beat the high score!</p></div>
+        </div>
+      </div>
+      <a href="../" class="home__back">🏠 Back to Dashboard</a>
+    </div>
+  </div>
+
+  <div id="screen-game" class="screen">
+    <div class="app">
+      <div class="topbar">
+        <button class="btn-icon" id="btn-back" title="Back">←</button>
+        <h1 class="topbar__title">🏓 <span class="accent">Breakout</span></h1>
+        <div class="topbar__right">
+          <button class="btn-icon" id="btn-sound" title="Sound">🔊</button>
+          <button class="btn-icon" id="btn-pause" title="Pause">⏸</button>
+          <button class="btn-icon" id="btn-new" title="Restart">🔄</button>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat"><span class="stat-label">Score</span><span class="stat-val" id="score">0</span></div>
+        <div class="stat"><span class="stat-label">Lives</span><span class="stat-val" id="lives">3</span></div>
+        <div class="stat"><span class="stat-label">Best</span><span class="stat-val" id="best">0</span></div>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="canvas"></canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay__content">
+            <div class="overlay__emoji" id="ov-emoji">🏓</div>
+            <h2 id="ov-title">Ready?</h2>
+            <p id="ov-msg">Click or tap to start!</p>
+            <button class="btn-play" id="btn-start">▶ Play</button>
+          </div>
+        </div>
+      </div>
+      <p class="brand">by <strong class="accent">MaRnevorget</strong></p>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

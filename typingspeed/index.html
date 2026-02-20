@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Typing Speed — MaRgames</title>
+  <meta name="description" content="Test your typing speed and accuracy!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="icon" href="../logo.png">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#07070d">
+  <link rel="apple-touch-icon" href="../logo.png">
+</head>
+<body>
+  <div class="bg-particles" id="bg-particles"></div>
+  <div id="screen-home" class="screen screen--active">
+    <div class="home">
+      <div class="home__hero">
+        <div class="home__logo">⌨️</div>
+        <h1 class="home__title"><span class="accent">Typing</span> Speed</h1>
+        <p class="home__subtitle">How fast can you type?</p>
+        <p class="home__author">by <span class="accent">MaRnevorget</span></p>
+      </div>
+      <button class="play-card" id="btn-home-play">
+        <span class="play-card__emoji">▶</span>
+        <div class="play-card__info"><h3>Start Typing</h3><p>Type as fast and accurately as you can</p></div>
+      </button>
+      <div class="home__howto">
+        <h2 class="section-label">How to Play</h2>
+        <div class="howto-grid">
+          <div class="howto-item"><span>⌨️</span><p>Type the shown words</p></div>
+          <div class="howto-item"><span>⏱️</span><p>30 seconds timer</p></div>
+          <div class="howto-item"><span>🎯</span><p>Accuracy matters</p></div>
+          <div class="howto-item"><span>🏆</span><p>Measure your WPM!</p></div>
+        </div>
+      </div>
+      <a href="../" class="home__back">🏠 Back to Dashboard</a>
+    </div>
+  </div>
+
+  <div id="screen-game" class="screen">
+    <div class="app">
+      <div class="topbar">
+        <button class="btn-icon" id="btn-back" title="Back">←</button>
+        <h1 class="topbar__title">⌨️ <span class="accent">Typing</span></h1>
+        <div class="topbar__right">
+          <button class="btn-icon" id="btn-sound" title="Sound">🔊</button>
+          <button class="btn-icon" id="btn-new" title="Restart">🔄</button>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat"><span class="stat-label">WPM</span><span class="stat-val" id="wpm">0</span></div>
+        <div class="stat"><span class="stat-label">Time</span><span class="stat-val" id="timer">30</span></div>
+        <div class="stat"><span class="stat-label">Best</span><span class="stat-val" id="best">0</span></div>
+      </div>
+      <div class="typing-area">
+        <div class="words" id="words"></div>
+        <input type="text" class="type-input" id="type-input" placeholder="Type here..." autocomplete="off" autocapitalize="off" spellcheck="false">
+        <div class="accuracy" id="accuracy"></div>
+      </div>
+      <p class="brand">by <strong class="accent">MaRnevorget</strong></p>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="overlay__content">
+      <div class="overlay__emoji" id="ov-emoji">⌨️</div>
+      <h2 id="ov-title">Ready?</h2>
+      <p id="ov-msg">Type as fast as you can!</p>
+      <button class="btn-play" id="btn-start">▶ Start</button>
+    </div>
+  </div>
+
+  <script src="game.js?v=3"></script>
+</body>
+</html>

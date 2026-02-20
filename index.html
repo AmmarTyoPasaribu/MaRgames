@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaRgames — Browser Game Collection by MaRnevorget</title>
+  <meta name="description" content="A premium collection of classic browser games. Play Minesweeper, Tetris, Snake, 2048, and more — all free, no downloads required.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#07070d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="logo.png">
+</head>
+<body>
+  <div class="bg-particles" id="bg-particles"></div>
+
+  <!-- Page transition overlay -->
+  <div class="page-transition" id="page-transition"></div>
+
+  <header class="header">
+    <div class="header__inner">
+      <div class="header__brand">
+        <img src="logo.png" alt="MaRgames" class="header__logo-img">
+        <h1 class="header__title">MaR<span class="accent">games</span></h1>
+      </div>
+      <div class="header__actions">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">🌙</button>
+        <p class="header__tagline">by <span class="accent">MaRnevorget</span></p>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <div class="hero__text">
+        <h2 class="hero__heading">Your Arcade,<br><span class="accent">Anywhere.</span></h2>
+        <p class="hero__sub">A collection of classic browser games — beautifully crafted, free to play, no downloads needed.</p>
+      </div>
+      <div class="hero__stats" id="hero-stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num" id="stat-games">15</span>
+          <span class="hero__stat-label">Games</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">∞</span>
+          <span class="hero__stat-label">Fun</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">0</span>
+          <span class="hero__stat-label">Downloads</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="games-section">
+      <h2 class="section-label">Choose Your Game</h2>
+      <div class="games-grid" id="games-grid">
+
+        <a href="minesweeper/" class="game-card" data-transition style="--ac:#10b981;--ac-g:rgba(16,185,129,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="minesweeper" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Minesweeper</h3>
+            <p>Classic puzzle — reveal cells, avoid mines</p>
+          </div>
+          <span class="game-card__badge">Puzzle</span>
+          <span class="game-card__best" data-game="minesweeper"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="tictactoe/" class="game-card" data-transition style="--ac:#8b5cf6;--ac-g:rgba(139,92,246,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="tictactoe" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Tic Tac Toe</h3>
+            <p>Outsmart the AI or challenge a friend</p>
+          </div>
+          <span class="game-card__badge">Strategy</span>
+          <span class="game-card__best" data-game="tictactoe"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="snake/" class="game-card" data-transition style="--ac:#22c55e;--ac-g:rgba(34,197,94,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="snake" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Snake</h3>
+            <p>Eat, grow, survive — don't hit the walls</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="snake"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="tetris/" class="game-card" data-transition style="--ac:#f59e0b;--ac-g:rgba(245,158,11,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="tetris" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Tetris</h3>
+            <p>Stack blocks, clear lines, chase high scores</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="tetris"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="flappybird/" class="game-card" data-transition style="--ac:#38bdf8;--ac-g:rgba(56,189,248,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="flappybird" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Flappy Bird</h3>
+            <p>Tap to fly — dodge the pipes</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="flappybird"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="2048/" class="game-card" data-transition style="--ac:#ec4899;--ac-g:rgba(236,72,153,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="2048" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>2048</h3>
+            <p>Slide and merge tiles to reach 2048</p>
+          </div>
+          <span class="game-card__badge">Puzzle</span>
+          <span class="game-card__best" data-game="2048"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="sudoku/" class="game-card" data-transition style="--ac:#06b6d4;--ac-g:rgba(6,182,212,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="sudoku" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Sudoku</h3>
+            <p>Fill the grid — every number counts</p>
+          </div>
+          <span class="game-card__badge">Puzzle</span>
+          <span class="game-card__best" data-game="sudoku"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="wordle/" class="game-card" data-transition style="--ac:#a3e635;--ac-g:rgba(163,230,53,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="wordle" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Wordle</h3>
+            <p>Guess the 5-letter word in 6 tries</p>
+          </div>
+          <span class="game-card__badge">Word</span>
+          <span class="game-card__best" data-game="wordle"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="breakout/" class="game-card" data-transition style="--ac:#f97316;--ac-g:rgba(249,115,22,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="breakout" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Breakout</h3>
+            <p>Bounce the ball and smash all bricks</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="breakout"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="mathquiz/" class="game-card" data-transition style="--ac:#f59e0b;--ac-g:rgba(245,158,11,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="mathquiz" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Math Quiz</h3>
+            <p>Quick-fire math challenges — 60s timer</p>
+          </div>
+          <span class="game-card__badge">Brain</span>
+          <span class="game-card__best" data-game="mathquiz"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="typingspeed/" class="game-card" data-transition style="--ac:#a78bfa;--ac-g:rgba(167,139,250,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="typingspeed" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Typing Speed</h3>
+            <p>Test your WPM and accuracy</p>
+          </div>
+          <span class="game-card__badge">Brain</span>
+          <span class="game-card__best" data-game="typingspeed"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="pong/" class="game-card" data-transition style="--ac:#14b8a6;--ac-g:rgba(20,184,166,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="pong" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Pong</h3>
+            <p>Classic paddle game vs AI</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="pong"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="memorymatch/" class="game-card" data-transition style="--ac:#ec4899;--ac-g:rgba(236,72,153,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="memorymatch" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Memory Match</h3>
+            <p>Find all matching emoji pairs</p>
+          </div>
+          <span class="game-card__badge">Puzzle</span>
+          <span class="game-card__best" data-game="memorymatch"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="spaceinvaders/" class="game-card" data-transition style="--ac:#22d3ee;--ac-g:rgba(34,211,238,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="spaceinvaders" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Space Invaders</h3>
+            <p>Defend Earth from alien waves</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="spaceinvaders"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+        <a href="fruitninja/" class="game-card" data-transition style="--ac:#ef4444;--ac-g:rgba(239,68,68,0.15)">
+          <div class="game-card__thumb"><canvas data-thumb="fruitninja" width="120" height="80"></canvas></div>
+          <div class="game-card__info">
+            <h3>Fruit Ninja</h3>
+            <p>Swipe to slash fruits — avoid bombs</p>
+          </div>
+          <span class="game-card__badge">Arcade</span>
+          <span class="game-card__best" data-game="fruitninja"></span>
+          <span class="game-card__arrow">→</span>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Built with 💚 by <strong class="accent">MaRnevorget</strong></p>
+    <p class="footer__sub">All games run in your browser — no data collected, no ads.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.log('SW failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
