@@ -26,6 +26,7 @@
   let flagMode = false;
   let timerInterval = null;
   let longPressTimer = null;
+  let touchStartX = 0, touchStartY = 0;
   let soundEnabled = true;
 
   // ─── DOM REFS ────────────────────────────
@@ -297,8 +298,15 @@
   }
 
   // ─── RENDER BOARD ────────────────────────
+  function getCellSize() {
+    const staticSize = CELL_SIZES[difficulty];
+    const padding = 40; // board-wrap + board padding/border allowance
+    const fit = Math.floor((window.innerWidth - padding) / cfg.cols);
+    return Math.max(22, Math.min(staticSize, fit));
+  }
+
   function renderBoard() {
-    const size = CELL_SIZES[difficulty];
+    const size = getCellSize();
     boardEl.style.gridTemplateColumns = `repeat(${cfg.cols}, ${size}px)`;
     boardEl.style.gridTemplateRows = `repeat(${cfg.rows}, ${size}px)`;
     boardEl.innerHTML = '';
@@ -316,14 +324,22 @@
 
         // Mobile long-press
         el.addEventListener('touchstart', e => {
+          e.preventDefault();
+          const touch = e.touches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
           longPressTimer = setTimeout(() => {
-            e.preventDefault();
             handleRightClick(r, c);
             longPressTimer = null;
           }, 400);
         }, { passive: false });
         el.addEventListener('touchend', () => { if (longPressTimer) clearTimeout(longPressTimer); });
-        el.addEventListener('touchmove', () => { if (longPressTimer) clearTimeout(longPressTimer); });
+        el.addEventListener('touchmove', e => {
+          if (!longPressTimer) return;
+          const touch = e.touches[0];
+          const dx = touch.clientX - touchStartX, dy = touch.clientY - touchStartY;
+          if (Math.sqrt(dx * dx + dy * dy) > 10) { clearTimeout(longPressTimer); longPressTimer = null; }
+        }, { passive: false });
 
         boardEl.appendChild(el);
       }

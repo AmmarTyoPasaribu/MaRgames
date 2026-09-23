@@ -118,14 +118,25 @@
   }
 
   document.addEventListener('keydown', e => {
+    if (!grid || !screenGame.classList.contains('screen--active')) return;
     const map = {ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'};
     if (map[e.key]) { e.preventDefault(); move(map[e.key]); }
   });
 
-  let sx,sy;
-  document.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  let sx=null,sy=null;
+  document.addEventListener('touchstart', e => {
+    if (!grid || !screenGame.classList.contains('screen--active')) { sx=null; sy=null; return; }
+    sx=e.touches[0].clientX; sy=e.touches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchmove', e => {
+    if (sx===null || sy===null) return;
+    e.preventDefault();
+  }, {passive:false});
   document.addEventListener('touchend', e => {
+    if (sx===null || sy===null) return;
     const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    sx=null; sy=null;
+    if (!Number.isFinite(dx) || !Number.isFinite(dy)) return;
     if (Math.max(Math.abs(dx),Math.abs(dy))<30) return;
     if (Math.abs(dx)>Math.abs(dy)) move(dx>0?'right':'left');
     else move(dy>0?'down':'up');

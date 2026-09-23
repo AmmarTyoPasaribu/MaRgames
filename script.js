@@ -75,6 +75,8 @@
     memorymatch:    { key: 'memory_best', label: 'Best: ', suffix: ' moves' },
     spaceinvaders:  { key: 'invaders_best', label: 'Best: ' },
     fruitninja:     { key: 'fruitninja_best', label: 'Best: ' },
+    connectfour:    { key: 'c4_stats', label: 'Wins: ', parse: v => { try { const s = JSON.parse(v); return s.p1 || 0; } catch { return null; } } },
+    whackamole:     { key: 'whackamole_best', label: 'Best: ' },
   };
 
   document.querySelectorAll('.game-card__best[data-game]').forEach(el => {
@@ -238,6 +240,28 @@
       ctx.fillText('💣',40,65);
       ctx.strokeStyle='rgba(255,255,255,0.3)';ctx.lineWidth=2;ctx.lineCap='round';
       ctx.beginPath();ctx.moveTo(15,h-10);ctx.quadraticCurveTo(50,20,w-15,h/2);ctx.stroke();
+    },
+    connectfour(ctx, w, h) {
+      ctx.fillStyle='#0a0a14';ctx.fillRect(0,0,w,h);
+      ctx.fillStyle='#1e3a8a';ctx.beginPath();ctx.roundRect(4,4,w-8,h-8,4);ctx.fill();
+      const cs=13, cols=7, rows=4, ox=8, oy=8;
+      const pattern=[0,0,1,2,1,0,0, 0,1,2,1,2,1,0, 2,1,2,1,2,2,1, 1,2,1,1,2,1,2];
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+        const v=pattern[r*cols+c];
+        ctx.fillStyle = v===0 ? '#0a0a14' : (v===1 ? '#ef4444' : '#eab308');
+        ctx.beginPath();ctx.arc(ox+c*cs+cs/2, oy+r*cs+cs/2, cs/2-1.5, 0, Math.PI*2);ctx.fill();
+      }
+    },
+    whackamole(ctx, w, h) {
+      ctx.fillStyle='#0a0a14';ctx.fillRect(0,0,w,h);
+      const cols=3, rows=2, cs=22, gap=6, ox=(w-(cols*cs+(cols-1)*gap))/2, oy=8;
+      const pops=[1,0,0, 0,0,2];
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+        const cx=ox+c*(cs+gap)+cs/2, cy=oy+r*(cs+gap)+cs/2;
+        ctx.fillStyle='#100b07';ctx.beginPath();ctx.ellipse(cx,cy,cs/2,cs/2.6,0,0,Math.PI*2);ctx.fill();
+        const v=pops[r*cols+c];
+        if(v){ ctx.font='16px serif';ctx.textAlign='center';ctx.fillText(v===1?'🐹':'💣',cx,cy+5); }
+      }
     },
   };
 

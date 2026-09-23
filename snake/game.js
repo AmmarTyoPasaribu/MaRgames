@@ -153,6 +153,7 @@
   // Controls
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' || e.key === 'p' || e.key === 'P') { if(running) togglePause(); return; }
+    if (!screenGame.classList.contains('screen--active')) return;
     if (paused) return;
     const map = {ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0}};
     if(map[e.key]){
@@ -164,15 +165,17 @@
   });
 
   document.querySelectorAll('.dpad-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
+    const pressDir = () => {
       const map={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};
       const d=map[btn.dataset.dir];
       if(!running){ startGame(); return; }
       if(d.x!==-dir.x||d.y!==-dir.y){ nextDir=d; SFX.turn(); }
-    });
+    };
+    btn.addEventListener('click', pressDir);
+    btn.addEventListener('touchstart', e=>{ e.preventDefault(); pressDir(); }, { passive: false });
   });
 
-  window.addEventListener('resize', ()=>{ if(screenGame.classList.contains('screen--active')) resize(); });
+  window.addEventListener('resize', ()=>{ if(screenGame.classList.contains('screen--active')) { resize(); draw(); } });
 
   $('btn-home-play').addEventListener('click', showGameScreen);
   $('btn-start').addEventListener('click', startGame);

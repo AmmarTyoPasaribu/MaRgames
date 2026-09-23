@@ -147,6 +147,14 @@
     player.y = Math.max(0, Math.min(H - player.h, player.y));
   });
 
+  canvas.addEventListener('touchstart', e => {
+    if (!running || paused) return; e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const scaleY = H / rect.height;
+    player.y = (e.touches[0].clientY - rect.top) * scaleY - player.h/2;
+    player.y = Math.max(0, Math.min(H - player.h, player.y));
+  }, {passive:false});
+
   canvas.addEventListener('touchmove', e => {
     if (!running || paused) return; e.preventDefault();
     const rect = canvas.getBoundingClientRect();

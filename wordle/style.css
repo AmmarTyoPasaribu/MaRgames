@@ -37,7 +37,7 @@ a,button{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 .topbar{width:100%;display:flex;align-items:center;justify-content:space-between}
 .topbar__title{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:6px}
 .topbar__right{display:flex;gap:6px}
-.btn-icon{width:38px;height:38px;border-radius:var(--r-md);background:var(--glass);border:1px solid var(--border);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.btn-icon{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:var(--r-md);background:var(--glass);border:1px solid var(--border);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .btn-icon:hover{background:var(--glass-h);border-color:var(--accent)}
 
 .lang-badge{font-size:.55rem;padding:2px 6px;border-radius:4px;background:var(--accent);color:#fff;font-weight:800;letter-spacing:1px;-webkit-text-fill-color:#fff;background-clip:padding-box;-webkit-background-clip:padding-box}
@@ -59,11 +59,11 @@ a,button{font-family:inherit;cursor:pointer;border:none;background:none;color:in
 
 .status{min-height:24px;font-size:.9rem;font-weight:700}
 
-.keyboard{display:flex;flex-direction:column;gap:6px;width:100%;max-width:480px}
-.kb-row{display:flex;justify-content:center;gap:4px}
-.key{height:44px;min-width:30px;padding:0 7px;border-radius:6px;background:rgba(255,255,255,.12);border:none;color:var(--text);font-size:.82rem;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;text-transform:uppercase;-webkit-tap-highlight-color:transparent}
+.keyboard{display:flex;flex-direction:column;gap:6px;width:100%;max-width:480px;touch-action:manipulation}
+.kb-row{display:flex;justify-content:center;gap:clamp(3px,1vw,4px)}
+.key{height:44px;flex:1 1 0;min-width:24px;max-width:44px;padding:0 clamp(2px,1.5vw,7px);border-radius:6px;background:rgba(255,255,255,.12);border:none;color:var(--text);font-size:clamp(.62rem,3vw,.82rem);font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;text-transform:uppercase;-webkit-tap-highlight-color:transparent}
 .key:active{transform:scale(.92)}
-.key.wide{min-width:52px;font-size:.7rem}
+.key.wide{flex:1.6 1 0;min-width:34px;max-width:60px;font-size:clamp(.55rem,2.4vw,.7rem)}
 .key.correct{background:var(--green);color:#fff}
 .key.present{background:var(--yellow);color:#000}
 .key.absent{background:rgba(255,255,255,.04);color:#555}

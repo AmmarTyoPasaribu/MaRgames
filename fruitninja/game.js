@@ -136,20 +136,25 @@
   }
 
   function checkSlice(x, y) {
-    fruits.forEach(f => {
-      if (f.sliced) return;
+    for (let i = 0; i < fruits.length; i++) {
+      const f = fruits[i];
+      if (f.sliced) continue;
       const dx = x - f.x, dy = y - f.y;
       if (dx*dx + dy*dy < f.r*f.r*1.5) {
         f.sliced = true;
-        if (f.isBomb) { SFX.bomb(); lives--; $('lives').textContent = lives>0?'❤️'.repeat(lives):'💀'; if(lives<=0)gameOver(); }
-        else { SFX.slice(); score++; $('score').textContent = score; }
         // Particles
         f.particles = [];
-        for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
           f.particles.push({ x: f.x, y: f.y, vx:(Math.random()-0.5)*6, vy:(Math.random()-0.5)*6-2, size:Math.random()*4+2, life:1 });
         }
+        if (f.isBomb) {
+          SFX.bomb(); lives--; $('lives').textContent = lives>0?'❤️'.repeat(lives):'💀'; if(lives<=0)gameOver();
+          return; // stop processing further fruits this swipe once a bomb is hit
+        } else {
+          SFX.slice(); score++; $('score').textContent = score;
+        }
       }
-    });
+    }
   }
 
   let isSlashing = false;
@@ -163,7 +168,7 @@
 
   canvas.addEventListener('mousedown', e => { if(!running||paused)return; isSlashing=true; const p=getCanvasPos(e); slashTrail=[{...p,t:Date.now()}]; checkSlice(p.x,p.y); });
   canvas.addEventListener('mousemove', e => { if(!isSlashing||!running||paused)return; const p=getCanvasPos(e); slashTrail.push({...p,t:Date.now()}); checkSlice(p.x,p.y); });
-  canvas.addEventListener('mouseup', () => { isSlashing=false; });
+  window.addEventListener('mouseup', () => { isSlashing=false; });
   canvas.addEventListener('touchstart', e => { e.preventDefault(); if(!running||paused)return; isSlashing=true; const p=getCanvasPos(e); slashTrail=[{...p,t:Date.now()}]; checkSlice(p.x,p.y); }, {passive:false});
   canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!isSlashing||!running||paused)return; const p=getCanvasPos(e); slashTrail.push({...p,t:Date.now()}); checkSlice(p.x,p.y); }, {passive:false});
   canvas.addEventListener('touchend', () => { isSlashing=false; });

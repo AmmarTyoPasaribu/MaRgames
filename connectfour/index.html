@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Tic Tac Toe — MaRgames</title>
-  <meta name="description" content="Play Tic Tac Toe against a smart AI or with a friend!">
+  <title>Connect Four — MaRgames</title>
+  <meta name="description" content="Play Connect Four against a smart AI or with a friend — drop discs and line up four!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -20,18 +20,18 @@
   <div id="screen-home" class="screen screen--active">
     <div class="home">
       <div class="home__hero">
-        <div class="home__logo">❌⭕</div>
-        <h1 class="home__title">Tic Tac <span class="accent">Toe</span></h1>
-        <p class="home__subtitle">The classic strategy game</p>
+        <div class="home__logo">🔴🟡</div>
+        <h1 class="home__title">Connect <span class="accent">Four</span></h1>
+        <p class="home__subtitle">Drop discs, line up four, win the grid</p>
         <p class="home__author">by <span class="accent">MaRnevorget</span></p>
       </div>
       <div class="home__cards">
-        <button class="mode-card" id="btn-play-ai">
+        <button class="mode-card" id="btn-play-ai" type="button">
           <span class="mode-card__emoji">🤖</span>
           <div class="mode-card__info"><h3>vs AI</h3><p>Challenge the computer</p></div>
           <span class="mode-card__go">▶</span>
         </button>
-        <button class="mode-card" id="btn-play-pvp">
+        <button class="mode-card" id="btn-play-pvp" type="button">
           <span class="mode-card__emoji">👥</span>
           <div class="mode-card__info"><h3>vs Player</h3><p>Play with a friend</p></div>
           <span class="mode-card__go">▶</span>
@@ -40,10 +40,10 @@
       <div class="home__howto">
         <h2 class="section-label">How to Play</h2>
         <div class="howto-grid">
-          <div class="howto-item"><span>❌</span><p>Player 1 is X</p></div>
-          <div class="howto-item"><span>⭕</span><p>Player 2 is O</p></div>
-          <div class="howto-item"><span>3️⃣</span><p>Get 3 in a row</p></div>
-          <div class="howto-item"><span>🏆</span><p>Win the match!</p></div>
+          <div class="howto-item"><span>🔴</span><p>Player 1 is Red</p></div>
+          <div class="howto-item"><span>🟡</span><p>Player 2 is Yellow</p></div>
+          <div class="howto-item"><span>👆</span><p>Tap a column to drop</p></div>
+          <div class="howto-item"><span>4️⃣</span><p>Line up 4 to win</p></div>
         </div>
       </div>
       <a href="../" class="home__back">🏠 Back to Dashboard</a>
@@ -54,19 +54,21 @@
   <div id="screen-game" class="screen">
     <div class="app">
       <div class="topbar">
-        <button class="btn-icon" id="btn-back" title="Back">←</button>
-        <h1 class="topbar__title">❌ <span class="accent">Tic Tac Toe</span></h1>
+        <button class="btn-icon" id="btn-back" title="Back" aria-label="Back to menu">←</button>
+        <h1 class="topbar__title">🔴 <span class="accent">Connect Four</span></h1>
         <div class="topbar__right">
-          <button class="btn-icon" id="btn-sound" title="Sound">🔊</button>
-          <button class="btn-icon" id="btn-new" title="New Game">🔄</button>
+          <button class="btn-icon" id="btn-sound" title="Sound" aria-label="Toggle sound">🔊</button>
+          <button class="btn-icon" id="btn-new" title="New Game" aria-label="New game">🔄</button>
         </div>
       </div>
-      <div class="status" id="status">X's turn</div>
-      <div class="board" id="board"></div>
+      <div class="status" id="status">Red's turn</div>
+      <div class="board-wrap">
+        <div class="board" id="board"></div>
+      </div>
       <div class="scoreboard">
-        <div class="score-item"><span class="score-label">X Wins</span><span class="score-val" id="x-wins">0</span></div>
+        <div class="score-item"><span class="score-label">Red Wins</span><span class="score-val" id="p1-wins">0</span></div>
         <div class="score-item"><span class="score-label">Draws</span><span class="score-val" id="draws">0</span></div>
-        <div class="score-item"><span class="score-label">O Wins</span><span class="score-val" id="o-wins">0</span></div>
+        <div class="score-item"><span class="score-label">Yellow Wins</span><span class="score-val" id="p2-wins">0</span></div>
       </div>
       <p class="brand">by <strong class="accent">MaRnevorget</strong></p>
     </div>

@@ -94,37 +94,50 @@
     renderWords(); updateStats();
   }
 
+  function submitWord(typed) {
+    if (!running || currentIdx >= wordList.length) return;
+    const wordSpans = wordsEl.querySelectorAll('.word');
+    if (typed === wordList[currentIdx]) {
+      correctCount++;
+      wordSpans[currentIdx].classList.add('correct');
+      SFX.correct();
+    } else {
+      wrongCount++;
+      wordSpans[currentIdx].classList.add('wrong');
+      SFX.wrong();
+    }
+    currentIdx++;
+    if (currentIdx < wordList.length) {
+      wordSpans[currentIdx].classList.add('active');
+    } else {
+      wordList.push(...genWords(20));
+      renderWords();
+    }
+    inputEl.value = '';
+    updateStats();
+  }
+
   inputEl.addEventListener('input', () => {
     if (!running) return;
     if (!started) { started = true; startTimer(); }
+    // Fallback for mobile keyboards that don't fire a usable keydown for space:
+    // if the value picked up a trailing space, treat it as a word submission.
+    if (inputEl.value.endsWith(' ')) {
+      submitWord(inputEl.value.trim());
+      return;
+    }
     SFX.key();
   });
 
   inputEl.addEventListener('keydown', e => {
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
-      if (!running || currentIdx >= wordList.length) return;
-      const typed = inputEl.value.trim();
-      const wordSpans = wordsEl.querySelectorAll('.word');
-      if (typed === wordList[currentIdx]) {
-        correctCount++;
-        wordSpans[currentIdx].classList.add('correct');
-        SFX.correct();
-      } else {
-        wrongCount++;
-        wordSpans[currentIdx].classList.add('wrong');
-        SFX.wrong();
-      }
-      currentIdx++;
-      if (currentIdx < wordList.length) {
-        wordSpans[currentIdx].classList.add('active');
-      } else {
-        wordList.push(...genWords(20));
-        renderWords();
-      }
-      inputEl.value = '';
-      updateStats();
+      submitWord(inputEl.value.trim());
     }
+  });
+
+  inputEl.addEventListener('focus', () => {
+    try { inputEl.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch(e) {}
   });
 
   function showGameScreen() {

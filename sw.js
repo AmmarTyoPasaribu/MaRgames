@@ -1,12 +1,13 @@
 /* MaRgames — Service Worker for Offline Play */
 
-const CACHE_NAME = 'margames-v3';
+const CACHE_NAME = 'margames-v5';
 const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
   '/logo.png',
+  '/icon-192.png',
   '/manifest.json',
   '/minesweeper/',
   '/minesweeper/index.html',
@@ -68,6 +69,14 @@ const ASSETS = [
   '/fruitninja/index.html',
   '/fruitninja/style.css',
   '/fruitninja/game.js',
+  '/connectfour/',
+  '/connectfour/index.html',
+  '/connectfour/style.css',
+  '/connectfour/game.js',
+  '/whackamole/',
+  '/whackamole/index.html',
+  '/whackamole/style.css',
+  '/whackamole/game.js',
 ];
 
 // Install — cache all game assets

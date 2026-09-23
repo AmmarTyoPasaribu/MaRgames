@@ -25,7 +25,7 @@
   const timerEl = $('timer'), errorsEl = $('errors'), bestEl = $('best');
 
   const CLUES = { easy: 38, medium: 30, hard: 24 };
-  let solution, puzzle, userGrid, selectedCell, errors, time, timerInterval, difficulty, gameOver;
+  let solution, puzzle, userGrid, selectedCell, errors, time, timerInterval, difficulty, gameOver, winTimeout;
 
   const savedSound = localStorage.getItem('sudoku_sound');
   soundEnabled = savedSound !== 'off';
@@ -80,6 +80,8 @@
     userGrid = puzzle.map(r=>[...r]);
     selectedCell = null; errors = 0; time = 0; gameOver = false;
     errorsEl.textContent = 0; timerEl.textContent = '00:00';
+    clearTimeout(winTimeout);
+    $('win-modal').classList.remove('active');
 
     const best = localStorage.getItem(`sudoku_best_${diff}`);
     bestEl.textContent = best ? formatTime(parseInt(best)) : '--:--';
@@ -167,7 +169,8 @@
         gameOver=true;clearInterval(timerInterval);SFX.win();
         const best=localStorage.getItem(`sudoku_best_${difficulty}`);
         if(!best||time<parseInt(best)){localStorage.setItem(`sudoku_best_${difficulty}`,String(time));bestEl.textContent=formatTime(time);}
-        setTimeout(()=>alert('🎉 Puzzle Complete! Time: '+formatTime(time)),300);
+        clearTimeout(winTimeout);
+        winTimeout = setTimeout(()=>{ $('win-time').textContent = 'Time: '+formatTime(time); $('win-modal').classList.add('active'); }, 300);
       }
     }
     updateHighlights();
@@ -179,6 +182,7 @@
     if(e.key>='1'&&e.key<='9'){placeNumber(+e.key);return;}
     if(e.key==='Backspace'||e.key==='Delete'){placeNumber(0);return;}
     const {r,c}=selectedCell;
+    if(e.key==='ArrowUp'||e.key==='ArrowDown'||e.key==='ArrowLeft'||e.key==='ArrowRight')e.preventDefault();
     if(e.key==='ArrowUp'&&r>0){selectedCell.r--;updateHighlights();}
     if(e.key==='ArrowDown'&&r<8){selectedCell.r++;updateHighlights();}
     if(e.key==='ArrowLeft'&&c>0){selectedCell.c--;updateHighlights();}
@@ -192,4 +196,5 @@
   $('btn-back').addEventListener('click',()=>{SFX.click();clearInterval(timerInterval);showScreen('home');});
   $('btn-new').addEventListener('click',()=>{SFX.click();init(difficulty||'easy');});
   $('btn-sound').addEventListener('click',toggleSound);
+  $('btn-win-close').addEventListener('click',()=>{SFX.click();$('win-modal').classList.remove('active');});
 })();

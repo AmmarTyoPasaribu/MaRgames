@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Math Quiz — MaRgames</title>
-  <meta name="description" content="Test your math skills with quick-fire questions!">
+  <title>Whack-a-Mole — MaRgames</title>
+  <meta name="description" content="Whack the moles, dodge the bombs — how high can you score in 30 seconds?">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="../logo.png">
   <link rel="manifest" href="../manifest.json">
   <meta name="theme-color" content="#07070d">
@@ -19,21 +19,21 @@
   <div id="screen-home" class="screen screen--active">
     <div class="home">
       <div class="home__hero">
-        <div class="home__logo">🧮</div>
-        <h1 class="home__title"><span class="accent">Math</span> Quiz</h1>
-        <p class="home__subtitle">Quick-fire math challenges!</p>
+        <div class="home__logo">🔨</div>
+        <h1 class="home__title">Whack-a-<span class="accent">Mole</span></h1>
+        <p class="home__subtitle">Quick reflexes, quicker taps!</p>
         <p class="home__author">by <span class="accent">MaRnevorget</span></p>
       </div>
-      <button class="play-card" id="btn-home-play">
+      <button class="play-card" id="btn-home-play" type="button">
         <span class="play-card__emoji">▶</span>
-        <div class="play-card__info"><h3>Play Math Quiz</h3><p>Answer as many as you can in 60s</p></div>
+        <div class="play-card__info"><h3>Play Whack-a-Mole</h3><p>Score as high as you can in 30s</p></div>
       </button>
       <div class="home__howto">
         <h2 class="section-label">How to Play</h2>
         <div class="howto-grid">
-          <div class="howto-item"><span>🔢</span><p>Solve math problems</p></div>
-          <div class="howto-item"><span>⏱️</span><p>60 seconds timer</p></div>
-          <div class="howto-item"><span>⚡</span><p>Speed = more points</p></div>
+          <div class="howto-item"><span>🐹</span><p>Tap moles to score</p></div>
+          <div class="howto-item"><span>💣</span><p>Avoid the bombs!</p></div>
+          <div class="howto-item"><span>⏱️</span><p>30 seconds timer</p></div>
           <div class="howto-item"><span>🏆</span><p>Beat your record!</p></div>
         </div>
       </div>
@@ -42,39 +42,34 @@
   </div>
 
   <div id="screen-game" class="screen">
-    <div class="app">
+    <div class="app" id="app">
       <div class="topbar">
-        <button class="btn-icon" id="btn-back" title="Back">←</button>
-        <h1 class="topbar__title">🧮 <span class="accent">Math Quiz</span></h1>
+        <button class="btn-icon" id="btn-back" title="Back" aria-label="Back to menu">←</button>
+        <h1 class="topbar__title">🔨 <span class="accent">Whack-a-Mole</span></h1>
         <div class="topbar__right">
-          <button class="btn-icon" id="btn-sound" title="Sound">🔊</button>
-          <button class="btn-icon" id="btn-new" title="Restart">🔄</button>
+          <button class="btn-icon" id="btn-sound" title="Sound" aria-label="Toggle sound">🔊</button>
+          <button class="btn-icon" id="btn-new" title="Restart" aria-label="Restart game">🔄</button>
         </div>
       </div>
       <div class="stats-bar">
         <div class="stat"><span class="stat-label">Score</span><span class="stat-val" id="score">0</span></div>
-        <div class="stat"><span class="stat-label">Time</span><span class="stat-val" id="timer" aria-live="polite">60</span></div>
+        <div class="stat"><span class="stat-label">Time</span><span class="stat-val" id="timer" aria-live="polite">30</span></div>
         <div class="stat"><span class="stat-label">Best</span><span class="stat-val" id="best">0</span></div>
       </div>
-      <div class="quiz-area" id="quiz-area">
-        <div class="question" id="question">Ready?</div>
-        <div class="answers" id="answers"></div>
-        <div class="streak" id="streak" aria-live="polite"></div>
-      </div>
+      <div class="board" id="board"></div>
       <p class="brand">by <strong class="accent">MaRnevorget</strong></p>
     </div>
   </div>
 
-  <!-- Overlay is OUTSIDE app, uses position:fixed + display:none/flex -->
   <div class="overlay" id="overlay">
     <div class="overlay__content">
-      <div class="overlay__emoji" id="ov-emoji">🧮</div>
+      <div class="overlay__emoji" id="ov-emoji">🔨</div>
       <h2 id="ov-title">Ready?</h2>
-      <p id="ov-msg">Answer as many as you can in 60s!</p>
+      <p id="ov-msg">Whack as many moles as you can in 30s!</p>
       <button class="btn-play" id="btn-start">▶ Start</button>
     </div>
   </div>
 
-  <script src="game.js?v=3"></script>
+  <script src="game.js"></script>
 </body>
 </html>

@@ -54,10 +54,18 @@
     questionEl.textContent = q.text;
     questionEl.classList.remove('correct', 'wrong');
     const choices = [q.answer];
-    while (choices.length < 4) {
-      const offset = Math.floor(Math.random()*10)-5;
+    let attempts = 0;
+    while (choices.length < 4 && attempts < 200) {
+      attempts++;
+      const range = 5 + Math.floor(attempts/10);
+      const offset = Math.floor(Math.random()*range*2)-range;
       const wrong = q.answer + (offset === 0 ? (Math.random()>0.5?1:-1) : offset);
       if (!choices.includes(wrong) && wrong >= 0) choices.push(wrong);
+    }
+    let fallback = 0;
+    while (choices.length < 4) {
+      if (!choices.includes(fallback)) choices.push(fallback);
+      fallback++;
     }
     choices.sort(() => Math.random() - 0.5);
     answersEl.innerHTML = '';

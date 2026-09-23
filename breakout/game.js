@@ -196,15 +196,24 @@
   })();
 
   canvas.addEventListener('mousemove', e => {
-    if (!running) return;
+    if (!running || paused) return;
     const rect = canvas.getBoundingClientRect();
     const scaleX = W / rect.width;
     paddle.x = (e.clientX - rect.left) * scaleX - paddle.w/2;
     paddle.x = Math.max(0, Math.min(W - paddle.w, paddle.x));
   });
 
+  canvas.addEventListener('touchstart', e => {
+    if (!running || paused) return;
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    paddle.x = (e.touches[0].clientX - rect.left) * scaleX - paddle.w/2;
+    paddle.x = Math.max(0, Math.min(W - paddle.w, paddle.x));
+  }, {passive:false});
+
   canvas.addEventListener('touchmove', e => {
-    if (!running) return;
+    if (!running || paused) return;
     e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     const scaleX = W / rect.width;

@@ -52,7 +52,7 @@
   const statusEl = $('status');
 
   // ─── STATE ───────────────────────────────
-  let board, currentPlayer, gameOver, vsAI;
+  let board, currentPlayer, gameOver, vsAI, aiTimer = null;
   let stats = JSON.parse(localStorage.getItem('ttt_stats') || '{"x":0,"o":0,"d":0}');
 
   function showScreen(name) {
@@ -88,6 +88,8 @@
   const WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
   function init() {
+    clearTimeout(aiTimer);
+    aiTimer = null;
     board = Array(9).fill(null);
     currentPlayer = 'X';
     gameOver = false;
@@ -108,7 +110,7 @@
 
     makeMove(i);
     if (!gameOver && vsAI && currentPlayer === 'O') {
-      setTimeout(() => { makeMove(bestMove()); }, 350);
+      aiTimer = setTimeout(() => { aiTimer = null; makeMove(bestMove()); }, 350);
     }
   }
 
@@ -185,7 +187,7 @@
   // ─── EVENTS ─────────────────────────────
   $('btn-play-ai').addEventListener('click', () => { SFX.click(); vsAI = true; showScreen('game'); init(); });
   $('btn-play-pvp').addEventListener('click', () => { SFX.click(); vsAI = false; showScreen('game'); init(); });
-  $('btn-back').addEventListener('click', () => { SFX.click(); showScreen('home'); });
+  $('btn-back').addEventListener('click', () => { SFX.click(); clearTimeout(aiTimer); aiTimer = null; showScreen('home'); });
   $('btn-new').addEventListener('click', () => { SFX.click(); init(); });
   $('btn-sound').addEventListener('click', toggleSound);
 

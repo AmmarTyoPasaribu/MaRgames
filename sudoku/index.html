@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Sudoku — MaRgames</title>
   <meta name="description" content="Play Sudoku with 3 difficulty levels!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,6 +72,14 @@
       <div class="board" id="board"></div>
       <div class="numpad" id="numpad"></div>
       <p class="brand">by <strong class="accent">MaRnevorget</strong></p>
+    </div>
+    <div class="win-modal" id="win-modal">
+      <div class="win-modal__content">
+        <div class="win-modal__emoji">🎉</div>
+        <h2>Puzzle Complete!</h2>
+        <p id="win-time"></p>
+        <button class="win-modal__close" id="btn-win-close">Nice!</button>
+      </div>
     </div>
   </div>
   <script src="game.js"></script>

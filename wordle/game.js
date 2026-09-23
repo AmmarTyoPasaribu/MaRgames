@@ -33,7 +33,7 @@
   const WORDS_ID = ['ACARA','ADUAN','AGAMA','AJAIB','AKTOR','ALAMI','ALANG','ALBUM','AMBIL','ANEKA','ANGKA','ANGIN','ANJAL','ANTAR','ANTRI','ASING','ATLET','BABAK','BADAN','BAHAN','BAHAS','BAHWA','BAKAR','BAKTI','BALAS','BAMBU','BANCA','BANTU','BAPAK','BARAT','BARIS','BASAH','BATIK','BATIN','BATAS','BAWAH','BAYAR','BAZAR','BEBAN','BEDAH','BEGAT','BEKAL','BELAH','BELUM','BENAR','BENCI','BENUA','BERAT','BERIT','BESAR','BESOK','BIAYA','BIDAK','BIJAK','BILIK','BINUS','BIOLA','BOBOT','BOLEH','BONUS','BUBUK','BUDAK','BUKIT','BULAN','BULAT','BUMBU','BUNGA','BURUK','BUTAN','CACAT','CAKAP','CALON','CAMAR','CAPAI','CELAH','CEPAT','CERAH','CETAK','CIPTA','CORAK','CUACA','CUCUK','CUKUP','CURAH','CULIK','DADAK','DAMAI','DARAT','DASAR','DAPAT','DATUM','DAWAI','DEKAT','DENDA','DEPAN','DERAS','DERET','DEWAS','DIDIK','DIJUA','DIKIT','DINAS','DOSEN','DUBES','DUNIA','EMBER','EMOSI','EMPAT','ENDAP','GADIS','GAGAL','GALAK','GANDA','GANGU','GARIS','GARPU','GAWAI','GELAR','GELAP','GENAP','GERAM','GERAK','GIGIT','GOSIP','GRASI','GUBAL','GULAI','GUMAM','GURUN','HABIS','HADAP','HAFAL','HARGA','HARUS','HASIL','HELAT','HIBAH','HIDUP','HIJAU','HINAS','HITAM','HITUNG','HOTEL','HUJAN','HUKUM','HUTAN','IBLIS','IKLIM','IKLAN','IKRAR','ILHAM','IMPOR','INDAH','INDUK','INTAI','IRONI','ISTRI','JALAN','JANJI','JARAK','JATUH','JAWAB','JELAK','JELAS','JENUH','JERUK','JILAT','JINAK','JINAK','JUJUR','JULUK','JUMPA','JUANG','JUDUL','KABAR','KABEL','KACAU','KAPAL','KARYA','KASIH','KATAK','KAWIN','KEBAL','KEBUN','KECIL','KEDUA','KERAS','KERJA','KEREN','KESAL','KETAT','KIDAL','KLAIM','KORAN','KORUP','KOTAK','KRONI','KUBUR','KUKUH','KULAK','KUPAS','KUPON','KURSI','KUTIL','KUNCI','LAHAN','LAHIR','LAJUR','LAPAR','LAYAK','LAYAR','LAZIM','LEGAL','LEMAH','LETAK','LIHAT','LIKEN','LILIN','LIPAT','LOGAM','LOMBA','LOKAL','LONCA','LUANG','LUHUR','LUMBA','MAKAN','MAKIN','MALAM','MALAH','MAMPU','MANIS','MARAH','MASAK','MASIH','MASUK','MEDAL','MELAR','MELIK','MEREK','MILIK','MINTA','MIRIP','MOBIL','MOGOK','MORAL','MULIA','MULAI','MURAH','MUSIM','MUTAR','NAKAL','NAMUN','NANTI','NASIB','NEKAT','NIKAH','NYALA','NYATA','OBJEK','OPINI','PACAR','PADAT','PAGAR','PAHAM','PAKAI','PAKAN','PAKET','PANAS','PANDU','PANIK','PARKIR','PASTI','PATAH','PATUT','PEJAL','PELAN','PELET','PENUH','PERAN','PESAN','PIKIR','PILIH','PINTA','POLIS','POLOS','POLOK','POSIT','POTOL','PUASA','PUCAT','PUNAH','PUSAT','PUTIH','RAWAN','REBAH','RILIS','RIMBA','RINDU','RISAU','ROBOT','RUBAH','RUJUK','RUMAH','RUMIT','RUSAK','SABUK','SAINS','SAKSI','SALAH','SALAM','SAMAR','SARAT','SEDIA','SEGAR','SELAM','SEMAK','SENIN','SERAT','SERTA','SIDIK','SIGAP','SIKAT','SINAR','SOSOK','SUAMI','SUDAH','SULIT','SURAT','TABIR','TAMAT','TANAH','TANDA','TEKAD','TEKAN','TEKUN','TELAT','TEMPO','TENAR','TEPAT','TERAS','TERTB','TIDAK','TIANG','TIKUS','TIMUR','TITIK','TOKOH','TUGAS','TULAR','TULIS','TUMBA','TURUT','ULUNG','UMBUL','UNTUK','UPAYA','USAHA','UTAMA','WAKIL','WAJAH','WAJIB','WAJAR','WAKTU','WANGI','WARGA','WARNA','WISMA','YAKNI','ZAMAN'];
 
   let currentLang = 'en';
-  let answer, guesses, currentGuess, currentRow, gameOverFlag;
+  let answer, guesses, currentGuess, currentRow, gameOverFlag, isAnimating;
   let stats = JSON.parse(localStorage.getItem('wordle_stats') || '{"streak":0,"best":0}');
 
   const savedSound = localStorage.getItem('wordle_sound');
@@ -52,7 +52,7 @@
   function init() {
     const words = getWordList();
     answer = words[Math.floor(Math.random()*words.length)];
-    guesses = []; currentGuess = ''; currentRow = 0; gameOverFlag = false;
+    guesses = []; currentGuess = ''; currentRow = 0; gameOverFlag = false; isAnimating = false;
     statusEl.textContent = '';
     streakEl.textContent = stats.streak;
     bestEl.textContent = stats.best;
@@ -117,12 +117,13 @@
   }
 
   function submitGuess() {
-    if (gameOverFlag) return;
+    if (gameOverFlag || isAnimating) return;
     if (currentGuess.length !== 5) {
       statusEl.textContent = currentLang === 'id' ? 'Perlu 5 huruf!' : 'Need 5 letters!';
       SFX.wrong(); return;
     }
 
+    isAnimating = true;
     const row = gridEl.children[currentRow];
     const result = evaluateGuess(currentGuess, answer);
 
@@ -141,6 +142,7 @@
     });
 
     setTimeout(() => {
+      isAnimating = false;
       if (currentGuess === answer) {
         statusEl.textContent = currentLang === 'id' ? '🎉 Benar!' : '🎉 You got it!';
         stats.streak++; if(stats.streak>stats.best)stats.best=stats.streak;

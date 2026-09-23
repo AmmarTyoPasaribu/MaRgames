@@ -223,7 +223,7 @@
 
   // Mobile controls
   document.querySelectorAll('.ctrl-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
+    const pressCtrl = () => {
       if(!running)return;
       const act=btn.dataset.act;
       if(act==='left'&&valid(piece.shape,px-1,py)){px--;SFX.move();}
@@ -232,7 +232,9 @@
       if(act==='rotate'){const rot=rotate(piece.shape);const kicks=[0,-1,1,-2,2];for(const k of kicks){if(valid(rot,px+k,py)){piece.shape=rot;px+=k;SFX.rotate();break;}}}
       if(act==='drop'){while(valid(piece.shape,px,py+1)){py++;score+=2;}$('score').textContent=score;lock();SFX.drop();}
       draw();
-    });
+    };
+    btn.addEventListener('click', pressCtrl);
+    btn.addEventListener('touchstart', e=>{ e.preventDefault(); pressCtrl(); }, { passive: false });
   });
 
   $('btn-home-play').addEventListener('click', showGameScreen);

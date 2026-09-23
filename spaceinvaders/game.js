@@ -128,15 +128,16 @@
       });
     });
 
-    // Alien bullet-ship collision
-    alienBullets.forEach(b => {
+    // Alien bullet-ship collision (break after first hit so multiple bullets in one frame can't double-decrement lives)
+    for (const b of alienBullets) {
       if (b.x>ship.x && b.x<ship.x+ship.w && b.y>ship.y && b.y<ship.y+ship.h) {
         b.y = H+99; lives--;
         $('lives').textContent = lives > 0 ? '❤️'.repeat(lives) : '💀';
         SFX.die();
         if (lives <= 0) gameOver();
+        break;
       }
-    });
+    }
 
     // Aliens reach bottom
     if (aliens.some(a => a.alive && a.y + a.h >= ship.y)) { lives = 0; $('lives').textContent = '💀'; gameOver(); return; }
@@ -148,6 +149,15 @@
   }
 
   let keys = {};
+  let lastShotTime = 0;
+  const SHOT_COOLDOWN = 250;
+  function fireBullet() {
+    const now = Date.now();
+    if (now - lastShotTime < SHOT_COOLDOWN) return;
+    lastShotTime = now;
+    bullets.push({x:ship.x+ship.w/2, y:ship.y});
+    SFX.shoot();
+  }
   function tick() { if (!running || paused) return; update(); animId = requestAnimationFrame(tick); }
 
   function gameOver() {
@@ -172,14 +182,26 @@
     if (e.key==='Escape'||e.key==='p'||e.key==='P') { if(running) togglePause(); return; }
     if (paused) return;
     keys[e.key] = true;
-    if (e.code === 'Space') { e.preventDefault(); if (!running) startGame(); else { bullets.push({x:ship.x+ship.w/2, y:ship.y}); SFX.shoot(); }}
+    if (e.code === 'Space') { e.preventDefault(); if (e.repeat) return; if (!running) startGame(); else fireBullet(); }
   });
   document.addEventListener('keyup', e => { keys[e.key] = false; });
 
-  // Touch controls
-  let touchX = null;
-  canvas.addEventListener('touchstart', e => { e.preventDefault(); touchX = e.touches[0].clientX; if(!running&&!paused) startGame(); else { bullets.push({x:ship.x+ship.w/2,y:ship.y});SFX.shoot(); }}, {passive:false});
+  // Touch controls: touchstart begins a drag; only a quick, mostly-stationary tap fires a bullet (checked on touchend),
+  // so dragging to reposition the ship no longer also fires a shot.
+  let touchX = null, touchStartX = null, touchStartTime = 0;
+  const TAP_MOVE_THRESHOLD = 12, TAP_TIME_THRESHOLD = 250;
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    touchX = e.touches[0].clientX; touchStartX = touchX; touchStartTime = Date.now();
+    if (!running && !paused) startGame();
+  }, {passive:false});
   canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!running||paused) return; const dx=e.touches[0].clientX-touchX; touchX=e.touches[0].clientX; ship.x=Math.max(0,Math.min(W-ship.w,ship.x+dx)); }, {passive:false});
+  canvas.addEventListener('touchend', e => {
+    if (!running || paused) return;
+    const moved = Math.abs(touchX - touchStartX);
+    const elapsed = Date.now() - touchStartTime;
+    if (moved < TAP_MOVE_THRESHOLD && elapsed < TAP_TIME_THRESHOLD) fireBullet();
+  }, {passive:false});
 
   $('btn-home-play').addEventListener('click', showGameScreen);
   $('btn-start').addEventListener('click', startGame);
